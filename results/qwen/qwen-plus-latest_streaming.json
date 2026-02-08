@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-02-08T01:14:07.091Z",
+  "config": {
+    "iterations": 1,
+    "streaming": true,
+    "prompts": [
+      "reit_damage_collection"
+    ]
+  },
+  "results": {
+    "qwen:qwen-plus-latest:streaming": {
+      "provider": "qwen",
+      "model": "qwen-plus-latest",
+      "iterations": 1,
+      "latency": {
+        "min": 3078,
+        "max": 3078,
+        "mean": 3078,
+        "median": 3078,
+        "p95": 3078,
+        "stdDev": 0
+      },
+      "ttft": {
+        "min": 511,
+        "max": 511,
+        "mean": 511,
+        "median": 511
+      },
+      "tokens": {
+        "avgPrompt": 0,
+        "avgCompletion": 0,
+        "avgTotal": 0,
+        "avgTokensPerSecond": null
+      },
+      "avgResponseLength": 509,
+      "successRate": 1
+    }
+  },
+  "raw": [
+    {
+      "provider": "qwen",
+      "model": "qwen-plus-latest",
+      "prompt": "reit_damage_collection",
+      "iteration": 1,
+      "latencyMs": 3078,
+      "ttftMs": 511,
+      "responseLength": 509,
+      "responseContent": "Danke für die Infos! Hier sind meine nächsten Fragen:\n\n1. Ist das Fahrzeug **verkehrssicher**? Also: Funktioniert die Beleuchtung (außer dem kaputten linken Scheinwerfer), sind alle Spiegel vorhanden und intakt, und gibt es keine scharfen Kanten oder sonstige Gefahren?\n\n2. Hast du den Unfall bereits **anderweitig gemeldet** (z. B. bei der Polizei oder am Unfallort mit einem Formular)? Falls ja: Gibt es eine Schadennummer oder Unfallakte?\n\n(Die Versicherung ist bereits bekannt: Allianz – das notiere ich.)",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Du sammelst Schadensinformationen.\n\nFRAGEN in dieser Reihenfolge:\n1. Schadensart (Was ist passiert?)\n2. Fahrzeug (Hersteller, Modell, Kennzeichen - gerne kombinieren)\n3. Selbst schuld?\n4. Verkehrssicher? (Beleuchtung, Spiegel ok? Keine scharfen Kanten?)\n5. Versicherung\n6. Schon gemeldet? Falls ja: Schadennummer? (optional)\n\nWICHTIG zu selbst_schuld:\n- \"Ja\"/\"Ich wars\"/\"Meine Schuld\" -> selbst_schuld=true, weiter sammeln\n- \"Nein\"/\"Nicht schuld\"/\"Der andere\"/\"Wurde angefahren\" -> action=konsultation_fremdverschulden\n\nWenn fahrbereit=false -> action=konsultation_mitarbeiter\n\nMaximal zwei Fragen pro Nachricht. Verwandte Fragen kombinieren."
+        },
+        {
+          "role": "user",
+          "content": "Hallo, ich hatte gestern einen Unfall. Jemand ist mir beim Ausparken reingefahren. Mein Auto ist ein BMW 3er mit dem Kennzeichen N-AB-123. Ich bin nicht schuld, der andere hat es auch zugegeben. Das Auto fährt noch, aber der Scheinwerfer vorne links ist kaputt. Ich habe es meiner Versicherung, der Allianz, noch nicht gemeldet."
+        }
+      ],
+      "success": true
+    }
+  ]
+}

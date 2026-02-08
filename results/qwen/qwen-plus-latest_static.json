@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-02-08T01:14:07.089Z",
+  "config": {
+    "iterations": 1,
+    "streaming": false,
+    "prompts": [
+      "reit_damage_collection"
+    ]
+  },
+  "results": {
+    "qwen:qwen-plus-latest:static": {
+      "provider": "qwen",
+      "model": "qwen-plus-latest",
+      "iterations": 1,
+      "latency": {
+        "min": 3808,
+        "max": 3808,
+        "mean": 3808,
+        "median": 3808,
+        "p95": 3808,
+        "stdDev": 0
+      },
+      "tokens": {
+        "avgPrompt": 324,
+        "avgCompletion": 164,
+        "avgTotal": 488,
+        "avgTokensPerSecond": 43.0672268907563
+      },
+      "avgResponseLength": 580,
+      "successRate": 1
+    }
+  },
+  "raw": [
+    {
+      "provider": "qwen",
+      "model": "qwen-plus-latest",
+      "prompt": "reit_damage_collection",
+      "iteration": 1,
+      "latencyMs": 3808,
+      "promptTokens": 324,
+      "completionTokens": 164,
+      "totalTokens": 488,
+      "tokensPerSecond": 43.0672268907563,
+      "responseLength": 580,
+      "responseContent": "Danke für die Infos! Hier sind meine nächsten beiden Fragen:\n\n1. Ist das Fahrzeug **verkehrssicher**? Also: Funktioniert die Beleuchtung (außer dem kaputten linken Scheinwerfer), sind alle Spiegel vorhanden und unbeschädigt, und gibt es keine scharfen Kanten oder lose Teile?\n\n2. Hast du den Unfall bereits **anderweitig gemeldet**, z. B. bei der Polizei oder beim anderen Fahrer – und falls ja: hast du schon eine **Schadennummer** von der Allianz erhalten? (Falls noch nicht gemeldet: kein Problem – dann einfach „nein“.)\n\nIch warte auf deine Antwort, um gezielt weiterzuhelfen.",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Du sammelst Schadensinformationen.\n\nFRAGEN in dieser Reihenfolge:\n1. Schadensart (Was ist passiert?)\n2. Fahrzeug (Hersteller, Modell, Kennzeichen - gerne kombinieren)\n3. Selbst schuld?\n4. Verkehrssicher? (Beleuchtung, Spiegel ok? Keine scharfen Kanten?)\n5. Versicherung\n6. Schon gemeldet? Falls ja: Schadennummer? (optional)\n\nWICHTIG zu selbst_schuld:\n- \"Ja\"/\"Ich wars\"/\"Meine Schuld\" -> selbst_schuld=true, weiter sammeln\n- \"Nein\"/\"Nicht schuld\"/\"Der andere\"/\"Wurde angefahren\" -> action=konsultation_fremdverschulden\n\nWenn fahrbereit=false -> action=konsultation_mitarbeiter\n\nMaximal zwei Fragen pro Nachricht. Verwandte Fragen kombinieren."
+        },
+        {
+          "role": "user",
+          "content": "Hallo, ich hatte gestern einen Unfall. Jemand ist mir beim Ausparken reingefahren. Mein Auto ist ein BMW 3er mit dem Kennzeichen N-AB-123. Ich bin nicht schuld, der andere hat es auch zugegeben. Das Auto fährt noch, aber der Scheinwerfer vorne links ist kaputt. Ich habe es meiner Versicherung, der Allianz, noch nicht gemeldet."
+        }
+      ],
+      "success": true
+    }
+  ]
+}

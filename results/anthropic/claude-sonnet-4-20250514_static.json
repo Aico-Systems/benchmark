@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-02-08T01:14:07.090Z",
+  "config": {
+    "iterations": 1,
+    "streaming": false,
+    "prompts": [
+      "reit_damage_collection"
+    ]
+  },
+  "results": {
+    "anthropic:claude-sonnet-4-20250514:static": {
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-20250514",
+      "iterations": 1,
+      "latency": {
+        "min": null,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "stdDev": null
+      },
+      "tokens": {
+        "avgPrompt": null,
+        "avgCompletion": null,
+        "avgTotal": null,
+        "avgTokensPerSecond": null
+      },
+      "avgResponseLength": 0,
+      "successRate": 0
+    }
+  },
+  "raw": []
+}

@@ -10,9 +10,12 @@ export interface ChatMessage {
 }
 
 export interface ChatOptions {
+    model?: string;
     temperature?: number;
     maxTokens?: number;
     topP?: number;
+    effort?: "low" | "medium" | "high";
+    thinkingLevel?: "LOW" | "MEDIUM" | "HIGH";
 }
 
 export interface ChatResponse {
@@ -59,6 +62,7 @@ export interface ProviderInfo {
     name: string;
     type: string;
     config?: Record<string, any>;
+    models: string[];
 }
 
 export class AicoClient {
@@ -85,23 +89,32 @@ export class AicoClient {
      * Get list of enabled LLM providers for the organization
      */
     async getProviders(): Promise<ProviderInfo[]> {
-        const res = await fetch(
-            `${this.baseUrl}/dev/api/organizations/current/providers?type=llm`,
-            { headers: this.headers }
-        );
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout for discovery
 
-        if (!res.ok) {
-            throw new Error(`Failed to get providers: ${res.status} ${await res.text()}`);
+        try {
+            const res = await fetch(
+                `${this.baseUrl}/dev/api/organizations/current/providers?type=llm`,
+                { headers: this.headers, signal: controller.signal }
+            );
+
+            if (!res.ok) {
+                throw new Error(`Failed to get providers: ${res.status} ${await res.text()}`);
+            }
+
+            const data = await res.json();
+            const providers = data.providers || [];
+
+            return providers.map((item: any) => ({
+                key: item.provider?.key,
+                name: item.provider?.name,
+                type: item.provider?.type,
+                config: item.config,
+                models: item.provider?.configSchema?.properties?.model?.enum || []
+            }));
+        } finally {
+            clearTimeout(timeout);
         }
-
-        const data = await res.json();
-        // API returns array with nested provider object
-        return data.map((item: any) => ({
-            key: item.provider?.key,
-            name: item.provider?.name,
-            type: item.provider?.type,
-            config: item.config,
-        }));
     }
 
     /**
@@ -112,17 +125,25 @@ export class AicoClient {
         messages: ChatMessage[],
         options?: ChatOptions
     ): Promise<ChatResponse> {
-        const res = await fetch(`${this.baseUrl}/dev/api/llm/chat`, {
-            method: "POST",
-            headers: this.headers,
-            body: JSON.stringify({ provider, messages, options }),
-        });
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 60000); // 60s timeout
 
-        if (!res.ok) {
-            throw new Error(`Chat failed: ${res.status} ${await res.text()}`);
+        try {
+            const res = await fetch(`${this.baseUrl}/dev/api/llm/chat`, {
+                method: "POST",
+                headers: this.headers,
+                body: JSON.stringify({ provider, messages, options }),
+                signal: controller.signal
+            });
+
+            if (!res.ok) {
+                throw new Error(`Chat failed: ${res.status} ${await res.text()}`);
+            }
+
+            return await res.json();
+        } finally {
+            clearTimeout(timeout);
         }
-
-        return res.json();
     }
 
     /**
@@ -133,40 +154,50 @@ export class AicoClient {
         messages: ChatMessage[],
         options?: ChatOptions
     ): AsyncGenerator<StreamEvent> {
-        const res = await fetch(`${this.baseUrl}/dev/api/llm/stream`, {
-            method: "POST",
-            headers: this.headers,
-            body: JSON.stringify({ provider, messages, options }),
-        });
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 60000); // 60s timeout for initial response
 
-        if (!res.ok) {
-            throw new Error(`Stream failed: ${res.status} ${await res.text()}`);
-        }
+        try {
+            const res = await fetch(`${this.baseUrl}/dev/api/llm/stream`, {
+                method: "POST",
+                headers: this.headers,
+                body: JSON.stringify({ provider, messages, options }),
+                signal: controller.signal
+            });
 
-        const reader = res.body?.getReader();
-        if (!reader) throw new Error("No response body");
+            clearTimeout(timeout);
 
-        const decoder = new TextDecoder();
-        let buffer = "";
+            if (!res.ok) {
+                throw new Error(`Stream failed: ${res.status} ${await res.text()}`);
+            }
 
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
+            const reader = res.body?.getReader();
+            if (!reader) throw new Error("No response body");
 
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split("\n");
-            buffer = lines.pop() || "";
+            const decoder = new TextDecoder();
+            let buffer = "";
 
-            for (const line of lines) {
-                if (line.startsWith("data: ")) {
-                    try {
-                        const event = JSON.parse(line.slice(6));
-                        yield event;
-                    } catch {
-                        // Skip malformed events
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split("\n");
+                buffer = lines.pop() || "";
+
+                for (const line of lines) {
+                    if (line.startsWith("data: ")) {
+                        try {
+                            const event = JSON.parse(line.slice(6));
+                            yield event;
+                        } catch {
+                            // Skip malformed events
+                        }
                     }
                 }
             }
+        } finally {
+            clearTimeout(timeout);
         }
     }
 }

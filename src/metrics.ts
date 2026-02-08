@@ -1,6 +1,7 @@
 /**
  * Metrics Collection and Statistics
  */
+import type { ChatMessage } from "./client";
 
 export interface BenchmarkResult {
     provider: string;
@@ -20,6 +21,8 @@ export interface BenchmarkResult {
 
     // Response
     responseLength: number;
+    responseContent?: string;
+    messages?: ChatMessage[];
     success: boolean;
     error?: string;
 }
@@ -52,6 +55,7 @@ export interface AggregateStats {
         avgTokensPerSecond: number;
     };
 
+    avgResponseLength: number;
     successRate: number;
 }
 
@@ -110,7 +114,7 @@ export function calculateStats(results: BenchmarkResult[]): AggregateStats {
             avgTotal: mean(successful.map(r => r.totalTokens || 0)),
             avgTokensPerSecond: mean(successful.filter(r => r.tokensPerSecond).map(r => r.tokensPerSecond!)),
         },
-
+        avgResponseLength: results.reduce((a, b) => a + b.responseLength, 0) / results.length,
         successRate: successful.length / results.length,
     };
 }

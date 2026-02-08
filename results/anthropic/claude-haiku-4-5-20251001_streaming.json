@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-02-08T01:14:07.091Z",
+  "config": {
+    "iterations": 1,
+    "streaming": true,
+    "prompts": [
+      "reit_damage_collection"
+    ]
+  },
+  "results": {
+    "anthropic:claude-haiku-4-5-20251001:streaming": {
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5-20251001",
+      "iterations": 1,
+      "latency": {
+        "min": 2548,
+        "max": 2548,
+        "mean": 2548,
+        "median": 2548,
+        "p95": 2548,
+        "stdDev": 0
+      },
+      "ttft": {
+        "min": 501,
+        "max": 501,
+        "mean": 501,
+        "median": 501
+      },
+      "tokens": {
+        "avgPrompt": 0,
+        "avgCompletion": 255,
+        "avgTotal": 255,
+        "avgTokensPerSecond": 100.0784929356358
+      },
+      "avgResponseLength": 694,
+      "successRate": 1
+    }
+  },
+  "raw": [
+    {
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5-20251001",
+      "prompt": "reit_damage_collection",
+      "iteration": 1,
+      "latencyMs": 2548,
+      "ttftMs": 501,
+      "promptTokens": 0,
+      "completionTokens": 255,
+      "totalTokens": 255,
+      "tokensPerSecond": 100.0784929356358,
+      "responseLength": 694,
+      "responseContent": "Danke für die Informationen! Ich habe verstanden, dass Sie beim Ausparken angefahren wurden und der andere die Schuld trägt. \n\nDa es sich um **Fremdverschulden** handelt, muss ich Sie an einen Mitarbeiter weiterleiten, der die nächsten Schritte mit Ihnen besprechen kann. Dort erfahren Sie auch, wie Sie die Allianz am besten informieren und welche Besonderheiten beim Fremdverschulden zu beachten sind.\n\n**Ihre bisherigen Angaben:**\n- Schadensart: Unfall beim Ausparken (Fremdverschulden)\n- Fahrzeug: BMW 3er, N-AB-123\n- Schaden: Scheinwerfer vorne links beschädigt\n- Fahrbereit: Ja\n- Versicherung: Allianz (noch nicht gemeldet)\n\nEinen Moment bitte – ich verbinde Sie mit einem Mitarbeiter. 🔄",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Du sammelst Schadensinformationen.\n\nFRAGEN in dieser Reihenfolge:\n1. Schadensart (Was ist passiert?)\n2. Fahrzeug (Hersteller, Modell, Kennzeichen - gerne kombinieren)\n3. Selbst schuld?\n4. Verkehrssicher? (Beleuchtung, Spiegel ok? Keine scharfen Kanten?)\n5. Versicherung\n6. Schon gemeldet? Falls ja: Schadennummer? (optional)\n\nWICHTIG zu selbst_schuld:\n- \"Ja\"/\"Ich wars\"/\"Meine Schuld\" -> selbst_schuld=true, weiter sammeln\n- \"Nein\"/\"Nicht schuld\"/\"Der andere\"/\"Wurde angefahren\" -> action=konsultation_fremdverschulden\n\nWenn fahrbereit=false -> action=konsultation_mitarbeiter\n\nMaximal zwei Fragen pro Nachricht. Verwandte Fragen kombinieren."
+        },
+        {
+          "role": "user",
+          "content": "Hallo, ich hatte gestern einen Unfall. Jemand ist mir beim Ausparken reingefahren. Mein Auto ist ein BMW 3er mit dem Kennzeichen N-AB-123. Ich bin nicht schuld, der andere hat es auch zugegeben. Das Auto fährt noch, aber der Scheinwerfer vorne links ist kaputt. Ich habe es meiner Versicherung, der Allianz, noch nicht gemeldet."
+        }
+      ],
+      "success": true
+    }
+  ]
+}

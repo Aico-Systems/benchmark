@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-02-08T01:14:07.091Z",
+  "config": {
+    "iterations": 1,
+    "streaming": true,
+    "prompts": [
+      "reit_damage_collection"
+    ]
+  },
+  "results": {
+    "openai:o3:streaming": {
+      "provider": "openai",
+      "model": "o3",
+      "iterations": 1,
+      "latency": {
+        "min": 4606,
+        "max": 4606,
+        "mean": 4606,
+        "median": 4606,
+        "p95": 4606,
+        "stdDev": 0
+      },
+      "tokens": {
+        "avgPrompt": 0,
+        "avgCompletion": 0,
+        "avgTotal": 0,
+        "avgTokensPerSecond": null
+      },
+      "avgResponseLength": 0,
+      "successRate": 1
+    }
+  },
+  "raw": []
+}

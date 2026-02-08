@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-02-08T01:14:07.091Z",
+  "config": {
+    "iterations": 1,
+    "streaming": true,
+    "prompts": [
+      "reit_damage_collection"
+    ]
+  },
+  "results": {
+    "qwen:qwen3-coder-flash:streaming": {
+      "provider": "qwen",
+      "model": "qwen3-coder-flash",
+      "iterations": 1,
+      "latency": {
+        "min": 3480,
+        "max": 3480,
+        "mean": 3480,
+        "median": 3480,
+        "p95": 3480,
+        "stdDev": 0
+      },
+      "ttft": {
+        "min": 716,
+        "max": 716,
+        "mean": 716,
+        "median": 716
+      },
+      "tokens": {
+        "avgPrompt": 0,
+        "avgCompletion": 0,
+        "avgTotal": 0,
+        "avgTokensPerSecond": null
+      },
+      "avgResponseLength": 1180,
+      "successRate": 1
+    }
+  },
+  "raw": [
+    {
+      "provider": "qwen",
+      "model": "qwen3-coder-flash",
+      "prompt": "reit_damage_collection",
+      "iteration": 1,
+      "latencyMs": 3480,
+      "ttftMs": 716,
+      "responseLength": 1180,
+      "responseContent": "**1. Schadensart:**  \nWas ist passiert?  \n\n**2. Fahrzeug:**  \nWelches Fahrzeug war beteiligt? (Hersteller, Modell, Kennzeichen)  \n\n*(Kombinierte Frage 1+2)*  \n**Schadensart und Fahrzeug:**  \nBitte beschreiben Sie kurz, was passiert ist und nennen Sie das Fahrzeug (Hersteller, Modell, Kennzeichen).  \n\n---\n\n**3. Selbst schuld?**  \nWarst du selbst schuld?  \n\n*(Kombinierte Frage 3+4)*  \n**Selbstschuld und Verkehrssicherheit:**  \nWaren Sie selbst schuld? Und sind alle Sicherheitsvorkehrungen wie Beleuchtung und Spiegel in Ordnung?  \n\n---\n\n**4. Versicherung:**  \nWelche Versicherung haben Sie?  \n\n**5. Schon gemeldet?**  \nHaben Sie den Schaden bereits bei Ihrer Versicherung gemeldet? Falls ja, welche Schadennummer?  \n\n---\n\n**Zusammenfassung nach den Antworten:**  \n- **Schadensart:** Unfall beim Ausparken  \n- **Fahrzeug:** BMW 3er, N-AB-123  \n- **Selbst schuld:** Nein (Der andere war schuld)  \n- **Verkehrssicherheit:** Auto fährt noch, Scheinwerfer kaputt  \n- **Versicherung:** Allianz  \n- **Bereits gemeldet:** Nein  \n\n**Aktion:**  \n→ **konsultation_fremdverschulden** (da der andere schuldig war)  \n\nMöchten Sie weitere Informationen oder Unterstützung zur Schadensmeldung?",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Du sammelst Schadensinformationen.\n\nFRAGEN in dieser Reihenfolge:\n1. Schadensart (Was ist passiert?)\n2. Fahrzeug (Hersteller, Modell, Kennzeichen - gerne kombinieren)\n3. Selbst schuld?\n4. Verkehrssicher? (Beleuchtung, Spiegel ok? Keine scharfen Kanten?)\n5. Versicherung\n6. Schon gemeldet? Falls ja: Schadennummer? (optional)\n\nWICHTIG zu selbst_schuld:\n- \"Ja\"/\"Ich wars\"/\"Meine Schuld\" -> selbst_schuld=true, weiter sammeln\n- \"Nein\"/\"Nicht schuld\"/\"Der andere\"/\"Wurde angefahren\" -> action=konsultation_fremdverschulden\n\nWenn fahrbereit=false -> action=konsultation_mitarbeiter\n\nMaximal zwei Fragen pro Nachricht. Verwandte Fragen kombinieren."
+        },
+        {
+          "role": "user",
+          "content": "Hallo, ich hatte gestern einen Unfall. Jemand ist mir beim Ausparken reingefahren. Mein Auto ist ein BMW 3er mit dem Kennzeichen N-AB-123. Ich bin nicht schuld, der andere hat es auch zugegeben. Das Auto fährt noch, aber der Scheinwerfer vorne links ist kaputt. Ich habe es meiner Versicherung, der Allianz, noch nicht gemeldet."
+        }
+      ],
+      "success": true
+    }
+  ]
+}

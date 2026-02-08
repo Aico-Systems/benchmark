@@ -5,16 +5,17 @@
     "description": "LLM Provider Benchmark Suite for AICO",
     "scripts": {
         "benchmark": "bun run src/index.ts",
+        "benchmark:all": "bun run src/index.ts --all-models -v -f json",
         "build": "bun build src/index.ts --outdir dist --target node",
         "test": "bun test"
     },
     "dependencies": {
-        "chalk": "^5.3.0",
-        "commander": "^12.0.0"
+        "chalk": "^5.6.2",
+        "commander": "^12.1.0"
     },
     "devDependencies": {
         "@types/bun": "latest",
         "tsx": "^4.21.0",
-        "typescript": "^5.0.0"
+        "typescript": "^5.9.3"
     }
 }

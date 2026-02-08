@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-02-08T01:14:07.092Z",
+  "config": {
+    "iterations": 1,
+    "streaming": true,
+    "prompts": [
+      "reit_damage_collection"
+    ]
+  },
+  "results": {
+    "groq:gemma2-9b-it:streaming": {
+      "provider": "groq",
+      "model": "gemma2-9b-it",
+      "iterations": 1,
+      "latency": {
+        "min": null,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "stdDev": null
+      },
+      "tokens": {
+        "avgPrompt": null,
+        "avgCompletion": null,
+        "avgTotal": null,
+        "avgTokensPerSecond": null
+      },
+      "avgResponseLength": 0,
+      "successRate": 0
+    }
+  },
+  "raw": []
+}

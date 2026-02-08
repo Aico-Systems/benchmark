@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-02-08T01:14:07.091Z",
+  "config": {
+    "iterations": 1,
+    "streaming": true,
+    "prompts": [
+      "reit_damage_collection"
+    ]
+  },
+  "results": {
+    "anthropic:claude-sonnet-4-20250514:streaming": {
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-20250514",
+      "iterations": 1,
+      "latency": {
+        "min": 5629,
+        "max": 5629,
+        "mean": 5629,
+        "median": 5629,
+        "p95": 5629,
+        "stdDev": 0
+      },
+      "ttft": {
+        "min": 1022,
+        "max": 1022,
+        "mean": 1022,
+        "median": 1022
+      },
+      "tokens": {
+        "avgPrompt": 0,
+        "avgCompletion": 272,
+        "avgTotal": 272,
+        "avgTokensPerSecond": 48.321193817729615
+      },
+      "avgResponseLength": 791,
+      "successRate": 1
+    }
+  },
+  "raw": [
+    {
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-20250514",
+      "prompt": "reit_damage_collection",
+      "iteration": 1,
+      "latencyMs": 5629,
+      "ttftMs": 1022,
+      "promptTokens": 0,
+      "completionTokens": 272,
+      "totalTokens": 272,
+      "tokensPerSecond": 48.321193817729615,
+      "responseLength": 791,
+      "responseContent": "Hallo! Das tut mir leid zu hören. Ich helfe Ihnen gerne bei der Schadensmeldung.\n\nDa Sie nicht schuld sind und der andere die Schuld zugegeben hat, empfehle ich Ihnen, sich direkt mit einem unserer Mitarbeiter in Verbindung zu setzen. Bei Fremdverschulden können wir Ihnen am besten persönlich dabei helfen, Ihre Ansprüche gegenüber der gegnerischen Versicherung geltend zu machen.\n\nSie erreichen unsere Schadenhotline unter der Nummer, die Sie in Ihren Versicherungsunterlagen finden, oder können einen Termin in einer unserer Filialen vereinbaren.\n\nHalten Sie bitte folgende Informationen bereit:\n- Ihre Versicherungsnummer\n- Daten des Unfallgegners (Name, Versicherung, Kennzeichen)\n- Unfallort und -zeit\n- Eventuell vorhandene Fotos vom Schaden\n\nBenötigen Sie noch weitere Unterstützung?",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Du sammelst Schadensinformationen.\n\nFRAGEN in dieser Reihenfolge:\n1. Schadensart (Was ist passiert?)\n2. Fahrzeug (Hersteller, Modell, Kennzeichen - gerne kombinieren)\n3. Selbst schuld?\n4. Verkehrssicher? (Beleuchtung, Spiegel ok? Keine scharfen Kanten?)\n5. Versicherung\n6. Schon gemeldet? Falls ja: Schadennummer? (optional)\n\nWICHTIG zu selbst_schuld:\n- \"Ja\"/\"Ich wars\"/\"Meine Schuld\" -> selbst_schuld=true, weiter sammeln\n- \"Nein\"/\"Nicht schuld\"/\"Der andere\"/\"Wurde angefahren\" -> action=konsultation_fremdverschulden\n\nWenn fahrbereit=false -> action=konsultation_mitarbeiter\n\nMaximal zwei Fragen pro Nachricht. Verwandte Fragen kombinieren."
+        },
+        {
+          "role": "user",
+          "content": "Hallo, ich hatte gestern einen Unfall. Jemand ist mir beim Ausparken reingefahren. Mein Auto ist ein BMW 3er mit dem Kennzeichen N-AB-123. Ich bin nicht schuld, der andere hat es auch zugegeben. Das Auto fährt noch, aber der Scheinwerfer vorne links ist kaputt. Ich habe es meiner Versicherung, der Allianz, noch nicht gemeldet."
+        }
+      ],
+      "success": true
+    }
+  ]
+}

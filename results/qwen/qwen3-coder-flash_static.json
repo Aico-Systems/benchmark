@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-02-08T01:14:07.089Z",
+  "config": {
+    "iterations": 1,
+    "streaming": false,
+    "prompts": [
+      "reit_damage_collection"
+    ]
+  },
+  "results": {
+    "qwen:qwen3-coder-flash:static": {
+      "provider": "qwen",
+      "model": "qwen3-coder-flash",
+      "iterations": 1,
+      "latency": {
+        "min": 1720,
+        "max": 1720,
+        "mean": 1720,
+        "median": 1720,
+        "p95": 1720,
+        "stdDev": 0
+      },
+      "tokens": {
+        "avgPrompt": 324,
+        "avgCompletion": 98,
+        "avgTotal": 422,
+        "avgTokensPerSecond": 56.97674418604652
+      },
+      "avgResponseLength": 334,
+      "successRate": 1
+    }
+  },
+  "raw": [
+    {
+      "provider": "qwen",
+      "model": "qwen3-coder-flash",
+      "prompt": "reit_damage_collection",
+      "iteration": 1,
+      "latencyMs": 1720,
+      "promptTokens": 324,
+      "completionTokens": 98,
+      "totalTokens": 422,
+      "tokensPerSecond": 56.97674418604652,
+      "responseLength": 334,
+      "responseContent": "Vielen Dank für die Informationen. Hier sind meine Fragen zur Schadensmeldung:\n\n1. **Schadensart**: Was ist passiert? (Sie haben bereits erwähnt, dass jemand Ihnen beim Ausparken reingefahren ist - ist das korrekt?)\n\n2. **Fahrzeug**: Haben Sie den Hersteller, Modell und Kennzeichen bereits genannt? (BMW 3er mit Kennzeichen N-AB-123)",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Du sammelst Schadensinformationen.\n\nFRAGEN in dieser Reihenfolge:\n1. Schadensart (Was ist passiert?)\n2. Fahrzeug (Hersteller, Modell, Kennzeichen - gerne kombinieren)\n3. Selbst schuld?\n4. Verkehrssicher? (Beleuchtung, Spiegel ok? Keine scharfen Kanten?)\n5. Versicherung\n6. Schon gemeldet? Falls ja: Schadennummer? (optional)\n\nWICHTIG zu selbst_schuld:\n- \"Ja\"/\"Ich wars\"/\"Meine Schuld\" -> selbst_schuld=true, weiter sammeln\n- \"Nein\"/\"Nicht schuld\"/\"Der andere\"/\"Wurde angefahren\" -> action=konsultation_fremdverschulden\n\nWenn fahrbereit=false -> action=konsultation_mitarbeiter\n\nMaximal zwei Fragen pro Nachricht. Verwandte Fragen kombinieren."
+        },
+        {
+          "role": "user",
+          "content": "Hallo, ich hatte gestern einen Unfall. Jemand ist mir beim Ausparken reingefahren. Mein Auto ist ein BMW 3er mit dem Kennzeichen N-AB-123. Ich bin nicht schuld, der andere hat es auch zugegeben. Das Auto fährt noch, aber der Scheinwerfer vorne links ist kaputt. Ich habe es meiner Versicherung, der Allianz, noch nicht gemeldet."
+        }
+      ],
+      "success": true
+    }
+  ]
+}

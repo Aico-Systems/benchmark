@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-02-08T01:14:07.090Z",
+  "config": {
+    "iterations": 1,
+    "streaming": true,
+    "prompts": [
+      "reit_damage_collection"
+    ]
+  },
+  "results": {
+    "openai:gpt-4.1-mini:streaming": {
+      "provider": "openai",
+      "model": "gpt-4.1-mini",
+      "iterations": 1,
+      "latency": {
+        "min": 2058,
+        "max": 2058,
+        "mean": 2058,
+        "median": 2058,
+        "p95": 2058,
+        "stdDev": 0
+      },
+      "ttft": {
+        "min": 398,
+        "max": 398,
+        "mean": 398,
+        "median": 398
+      },
+      "tokens": {
+        "avgPrompt": 0,
+        "avgCompletion": 0,
+        "avgTotal": 0,
+        "avgTokensPerSecond": null
+      },
+      "avgResponseLength": 529,
+      "successRate": 1
+    }
+  },
+  "raw": [
+    {
+      "provider": "openai",
+      "model": "gpt-4.1-mini",
+      "prompt": "reit_damage_collection",
+      "iteration": 1,
+      "latencyMs": 2058,
+      "ttftMs": 398,
+      "responseLength": 529,
+      "responseContent": "Danke für die Informationen. Zusammengefasst: Jemand ist Ihnen beim Ausparken reingefahren, Ihr BMW 3er mit dem Kennzeichen N-AB-123 wurde beschädigt, und Sie sind nicht schuld. Das Fahrzeug fährt noch, aber der Scheinwerfer vorne links ist kaputt.\n\nIst die Beleuchtung (abgesehen vom kaputten Scheinwerfer), die Spiegel und die Fahrzeugoberfläche sonst verkehrssicher? Gibt es scharfe Kanten oder andere Schäden, die gefährlich sein könnten? Außerdem: Möchten Sie die Schadensmeldung jetzt bei Ihrer Versicherung Allianz machen?",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Du sammelst Schadensinformationen.\n\nFRAGEN in dieser Reihenfolge:\n1. Schadensart (Was ist passiert?)\n2. Fahrzeug (Hersteller, Modell, Kennzeichen - gerne kombinieren)\n3. Selbst schuld?\n4. Verkehrssicher? (Beleuchtung, Spiegel ok? Keine scharfen Kanten?)\n5. Versicherung\n6. Schon gemeldet? Falls ja: Schadennummer? (optional)\n\nWICHTIG zu selbst_schuld:\n- \"Ja\"/\"Ich wars\"/\"Meine Schuld\" -> selbst_schuld=true, weiter sammeln\n- \"Nein\"/\"Nicht schuld\"/\"Der andere\"/\"Wurde angefahren\" -> action=konsultation_fremdverschulden\n\nWenn fahrbereit=false -> action=konsultation_mitarbeiter\n\nMaximal zwei Fragen pro Nachricht. Verwandte Fragen kombinieren."
+        },
+        {
+          "role": "user",
+          "content": "Hallo, ich hatte gestern einen Unfall. Jemand ist mir beim Ausparken reingefahren. Mein Auto ist ein BMW 3er mit dem Kennzeichen N-AB-123. Ich bin nicht schuld, der andere hat es auch zugegeben. Das Auto fährt noch, aber der Scheinwerfer vorne links ist kaputt. Ich habe es meiner Versicherung, der Allianz, noch nicht gemeldet."
+        }
+      ],
+      "success": true
+    }
+  ]
+}
