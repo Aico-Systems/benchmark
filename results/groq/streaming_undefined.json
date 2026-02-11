@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-02-11T06:26:22.610Z",
+  "config": {
+    "iterations": 3,
+    "streaming": false,
+    "prompts": [
+      "simple_greeting",
+      "simple_factual",
+      "reasoning_math",
+      "reasoning_thinking_logic",
+      "reasoning_complex_logic",
+      "coding_function",
+      "coding_thinking_algorithm",
+      "reit_damage_collection"
+    ]
+  },
+  "results": {
+    "groq:streaming": {
+      "provider": "groq",
+      "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+      "iterations": 24,
+      "latency": {
+        "min": 122,
+        "max": 873,
+        "mean": 439.93333333333334,
+        "median": 426,
+        "p95": 873,
+        "stdDev": 268.34839709270153
+      },
+      "ttft": {
+        "min": 51,
+        "max": 451,
+        "mean": 156.46666666666667,
+        "median": 122
+      },
+      "tokens": {
+        "avgPrompt": 75.8,
+        "avgCompletion": 130.2,
+        "avgTotal": 206,
+        "avgTokensPerSecond": 258.2447419741491
+      },
+      "avgResponseLength": 333.875,
+      "successRate": 0.625
+    }
+  },
+  "raw": []
+}

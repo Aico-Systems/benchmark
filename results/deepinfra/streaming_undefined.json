@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-02-11T06:27:21.691Z",
+  "config": {
+    "iterations": 3,
+    "streaming": false,
+    "prompts": [
+      "simple_greeting",
+      "simple_factual",
+      "reasoning_math",
+      "reasoning_thinking_logic",
+      "reasoning_complex_logic",
+      "coding_function",
+      "coding_thinking_algorithm",
+      "reit_damage_collection"
+    ]
+  },
+  "results": {
+    "deepinfra:streaming": {
+      "provider": "deepinfra",
+      "model": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "iterations": 24,
+      "latency": {
+        "min": 275,
+        "max": 5725,
+        "mean": 2451.6666666666665,
+        "median": 1874,
+        "p95": 5348,
+        "stdDev": 1808.074198022735
+      },
+      "ttft": {
+        "min": 234,
+        "max": 338,
+        "mean": 275.2916666666667,
+        "median": 268.5
+      },
+      "tokens": {
+        "avgPrompt": 67.625,
+        "avgCompletion": 239.875,
+        "avgTotal": 307.5,
+        "avgTokensPerSecond": 83.62798122421555
+      },
+      "avgResponseLength": 864.75,
+      "successRate": 1
+    }
+  },
+  "raw": []
+}
