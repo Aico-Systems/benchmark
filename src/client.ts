@@ -94,7 +94,7 @@ export class AicoClient {
 
         try {
             const res = await fetch(
-                `${this.baseUrl}/dev/api/organizations/current/providers?type=llm`,
+                `${this.baseUrl}/dev/api/providers/configured?type=llm`,
                 { headers: this.headers, signal: controller.signal }
             );
 
