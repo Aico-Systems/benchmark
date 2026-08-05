@@ -4,9 +4,24 @@
  * HTTP client for communicating with backend LLM routes
  */
 
+export type ContentPart =
+    | { type: "text"; text: string }
+    | { type: "image" | "document"; mimeType: string; data: string };
+
 export interface ChatMessage {
     role: "system" | "user" | "assistant";
     content: string;
+    /** Multimodal parts — what makes a photo turn measurable. */
+    contentParts?: ContentPart[];
+}
+
+export interface ToolDefinition {
+    type: "function";
+    function: {
+        name: string;
+        description?: string;
+        parameters: Record<string, unknown>;
+    };
 }
 
 export interface ChatOptions {
@@ -45,6 +60,8 @@ export interface StreamEvent {
         firstTokenTime: number | null;
         endTime: number;
         ttftMs: number | null;
+        /** First token of the `response` FIELD — what the user perceives. */
+        ttfrMs?: number | null;
         latencyMs: number;
     };
     usage?: {
@@ -123,7 +140,8 @@ export class AicoClient {
     async chat(
         provider: string,
         messages: ChatMessage[],
-        options?: ChatOptions
+        options?: ChatOptions,
+        tools?: ToolDefinition[]
     ): Promise<ChatResponse> {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 60000); // 60s timeout
@@ -132,7 +150,12 @@ export class AicoClient {
             const res = await fetch(`${this.baseUrl}/dev/api/llm/chat`, {
                 method: "POST",
                 headers: this.headers,
-                body: JSON.stringify({ provider, messages, options }),
+                body: JSON.stringify({
+                    provider,
+                    messages,
+                    options,
+                    ...(tools?.length ? { tools, toolChoice: "required" } : {}),
+                }),
                 signal: controller.signal
             });
 
@@ -152,7 +175,8 @@ export class AicoClient {
     async *stream(
         provider: string,
         messages: ChatMessage[],
-        options?: ChatOptions
+        options?: ChatOptions,
+        tools?: ToolDefinition[]
     ): AsyncGenerator<StreamEvent> {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 60000); // 60s timeout for initial response
@@ -161,7 +185,12 @@ export class AicoClient {
             const res = await fetch(`${this.baseUrl}/dev/api/llm/stream`, {
                 method: "POST",
                 headers: this.headers,
-                body: JSON.stringify({ provider, messages, options }),
+                body: JSON.stringify({
+                    provider,
+                    messages,
+                    options,
+                    ...(tools?.length ? { tools, toolChoice: "required" } : {}),
+                }),
                 signal: controller.signal
             });
 

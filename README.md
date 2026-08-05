@@ -30,6 +30,27 @@ bun run benchmark --format markdown > report.md
 bun run benchmark --format json > results.json
 ```
 
+## Agentic-turn benchmark (the one that matters)
+
+The prompts above measure requests AICO never makes. A real turn is a forced
+tool call against a ~4 kB `route_decision` schema, often with a photo attached,
+and models rank very differently on that:
+
+```bash
+bun src/agenticBench.ts                       # every catalogued chat model
+bun src/agenticBench.ts --vision-only         # just the photo turn
+bun src/agenticBench.ts --models openai:gpt-4.1-nano,groq:llama-3.3-70b-versatile
+bun src/agenticBench.ts --iterations 5 -f json
+```
+
+Reports the median of N runs (provider latency is long-tailed — a mean hides
+behind one cold start), plus $/1k turns computed from catalogue pricing and
+real token usage. Latest results: `results/agentic-2026-08-05.md`.
+
+The photo turn needs a real, decodable image — `assets/benchmark/glove-photo.jpg`
+by default, override with `AICO_BENCH_IMAGE`. If none is found the photo turn is
+skipped rather than faked.
+
 ## Configuration
 
 Create a `.env` file (copy from `.env.example`):
