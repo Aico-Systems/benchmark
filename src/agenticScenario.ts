@@ -74,8 +74,8 @@ export const ROUTE_DECISION_TOOL = {
 					enum: [
 						"respond",
 						"handbuch_nachschlagen",
-						"schadensmeldung",
-						"teams_nachricht",
+						"foto_aufnehmen",
+						"meldung_absenden",
 						"schichtleiter_hinzuziehen",
 						"complete",
 					],
@@ -99,15 +99,16 @@ export const ROUTE_DECISION_TOOL = {
 							description:
 								"Die Sprache, in der der Mitarbeiter GERADE spricht, mit DEUTSCHER Bezeichnung.",
 						},
-						schadenArt: {
+						befundArt: {
 							anyOf: [{ type: "string" }, { type: "null" }],
-							description: "Was beschaedigt ist, DEUTSCH, max 4 Woerter.",
+							description:
+								"Die Sache auf dem Bild und ihr Zustand, DEUTSCH, max 4 Woerter.",
 						},
-						schadenSchwere: {
+						befundSchwere: {
 							anyOf: [{ type: "string" }, { type: "null" }],
 							description: "'gering', 'mittel' oder 'kritisch'.",
 						},
-						schadenOrt: {
+						befundOrt: {
 							anyOf: [{ type: "string" }, { type: "null" }],
 							description: "Regal / Station / Linie.",
 						},
@@ -174,12 +175,12 @@ TEXT FORMAT:
 Your "response" is displayed as text. Use digits and concise formatting.
 
 INPUT VARIABLE STATUS:
-✗ Still needed (2 REQUIRED — you CANNOT route until ALL are filled):
-→ ASK NOW: schadenArt — Was beschaedigt oder gestoert ist, auf Deutsch, max 4 Woerter.
-  ○ schadenSchwere — Schweregrad: 'gering', 'mittel' oder 'kritisch'.
+✗ Still needed (3 REQUIRED — you CANNOT route until ALL are filled):
 → YOU WRITE THESE YOURSELF — never ask the user for them:
-  • teamsTitle — Kurzer deutscher Betreff der Teams-Meldung.
+  • befundArt — Die Sache auf dem Bild und ihr Zustand, auf Deutsch, max 4 Woerter.
+  • befundSchwere — Schweregrad: 'gering', 'mittel' oder 'kritisch'.
   • teamsBody — Meldungstext auf Deutsch, 1-3 kurze Saetze.
+○ Optional: befundOrt; teamsTitle — Kurzer deutscher Betreff der Teams-Meldung.
 
 RESPONSE FORMAT:
 You MUST call the route_decision tool every turn.`;

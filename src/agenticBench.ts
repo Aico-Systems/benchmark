@@ -132,10 +132,16 @@ for (const cand of SELECTED) {
 				// worker hears something. Total completion time is what the
 				// server pays; TTFR is what the person waits.
 				let done = false;
+				// Mirror StreamingDecisionPipeline exactly, or this ranks a call
+				// AICO does not make. `effort: "low"` matters most: models that
+				// think before a tool call spend the token budget on reasoning
+				// and return no call at all — measured as a model failure when it
+				// is really a request-shape one. Ignored by models the catalogue
+				// does not tag `effort`.
 				for await (const ev of client.stream(
 					cand.provider,
 					scenario.messages,
-					{ model: cand.model, temperature: 0, maxTokens: 400 },
+					{ model: cand.model, temperature: 0, maxTokens: 500, effort: "low" },
 					[ROUTE_DECISION_TOOL],
 				)) {
 					if (ev.type === "error") throw new Error(ev.error ?? "stream error");
