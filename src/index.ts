@@ -39,7 +39,7 @@ program
 	.option(
 		"-u, --url <url>",
 		"AICO Backend URL",
-		process.env.AICO_BACKEND_URL || "http://localhost:5005",
+		process.env.AICO_BACKEND_URL || "http://localhost:8000",
 	)
 	.option("-o, --org <id>", "Organization ID", process.env.AICO_ORGANIZATION_ID)
 	.option("-p, --provider <name>", "Test specific provider only")

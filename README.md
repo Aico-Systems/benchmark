@@ -39,7 +39,7 @@ and models rank very differently on that:
 ```bash
 bun src/agenticBench.ts                       # every catalogued chat model
 bun src/agenticBench.ts --vision-only         # just the photo turn
-bun src/agenticBench.ts --models openai:gpt-4.1-nano,groq:llama-3.3-70b-versatile
+bun src/agenticBench.ts --models openai:gpt-5.6-luna,groq:openai/gpt-oss-120b
 bun src/agenticBench.ts --iterations 5 -f json
 ```
 
@@ -57,7 +57,7 @@ Create a `.env` file (copy from `.env.example`):
 
 ```bash
 # Backend URL (use /dev/ prefix for dev mode auth bypass)
-AICO_BACKEND_URL=http://localhost:3000
+AICO_BACKEND_URL=http://localhost:8000
 
 # Organization ID (optional - uses default dev org if empty)
 AICO_ORGANIZATION_ID=
@@ -67,7 +67,7 @@ AICO_ORGANIZATION_ID=
 
 | Option | Description | Default |
 |--------|-------------|---------|
-| `-u, --url <url>` | Backend URL | `http://localhost:3000` |
+| `-u, --url <url>` | Backend URL | `http://localhost:8000` |
 | `-o, --org <id>` | Organization ID | env or default |
 | `-p, --provider <name>` | Test specific provider | all enabled |
 | `-P, --prompts <category>` | Prompt category | `simple` |
