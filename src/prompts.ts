@@ -78,30 +78,10 @@ export const codingPrompts: PromptConfig[] = [
 	},
 ];
 
-export const reitPrompts: PromptConfig[] = [
-	{
-		name: "reit_damage_collection",
-		messages: [
-			{
-				role: "system",
-				content:
-					'Du sammelst Schadensinformationen.\n\nFRAGEN in dieser Reihenfolge:\n1. Schadensart (Was ist passiert?)\n2. Fahrzeug (Hersteller, Modell, Kennzeichen - gerne kombinieren)\n3. Selbst schuld?\n4. Verkehrssicher? (Beleuchtung, Spiegel ok? Keine scharfen Kanten?)\n5. Versicherung\n6. Schon gemeldet? Falls ja: Schadennummer? (optional)\n\nWICHTIG zu selbst_schuld:\n- "Ja"/"Ich wars"/"Meine Schuld" -> selbst_schuld=true, weiter sammeln\n- "Nein"/"Nicht schuld"/"Der andere"/"Wurde angefahren" -> action=konsultation_fremdverschulden\n\nWenn fahrbereit=false -> action=konsultation_mitarbeiter\n\nMaximal zwei Fragen pro Nachricht. Verwandte Fragen kombinieren.',
-			},
-			{
-				role: "user",
-				content:
-					"Hallo, ich hatte gestern einen Unfall. Jemand ist mir beim Ausparken reingefahren. Mein Auto ist ein BMW 3er mit dem Kennzeichen N-AB-123. Ich bin nicht schuld, der andere hat es auch zugegeben. Das Auto fährt noch, aber der Scheinwerfer vorne links ist kaputt. Ich habe es meiner Versicherung, der Allianz, noch nicht gemeldet.",
-			},
-		],
-		options: { maxTokens: 500 },
-	},
-];
-
 export const allPrompts: Record<string, PromptConfig[]> = {
 	simple: simplePrompts,
 	reasoning: reasoningPrompts,
 	coding: codingPrompts,
-	reit: reitPrompts,
 };
 
 export function getPrompts(category?: string): PromptConfig[] {
@@ -110,7 +90,6 @@ export function getPrompts(category?: string): PromptConfig[] {
 			...simplePrompts,
 			...reasoningPrompts,
 			...codingPrompts,
-			...reitPrompts,
 		];
 	}
 	return allPrompts[category] || simplePrompts;

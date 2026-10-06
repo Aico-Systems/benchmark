@@ -23,7 +23,6 @@ import {
 	simplePrompts,
 	reasoningPrompts,
 	codingPrompts,
-	reitPrompts,
 } from "./prompts";
 import * as consoleReporter from "./reporters/console";
 import { generateJsonReport } from "./reporters/json";
@@ -74,15 +73,12 @@ async function main() {
 					...simplePrompts,
 					...reasoningPrompts,
 					...codingPrompts,
-					...reitPrompts,
 				]
 			: opts.prompts === "simple"
 				? simplePrompts
 				: opts.prompts === "reasoning"
 					? reasoningPrompts
-					: opts.prompts === "reit"
-						? reitPrompts
-						: codingPrompts;
+					: codingPrompts;
 
 	// Only show console output if format is console
 	const isConsole = opts.format === "console";
