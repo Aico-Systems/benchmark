@@ -8,7 +8,7 @@ Benchmark tool for comparing LLM provider performance across latency, throughput
 # Install dependencies
 bun install
 
-# Run benchmark (all providers, simple prompts)
+# Run benchmark (all providers, all prompts)
 bun run benchmark
 
 # Test specific provider
@@ -70,8 +70,9 @@ AICO_ORGANIZATION_ID=
 | `-u, --url <url>` | Backend URL | `http://localhost:8000` |
 | `-o, --org <id>` | Organization ID | env or default |
 | `-p, --provider <name>` | Test specific provider | all enabled |
-| `-P, --prompts <category>` | Prompt category | `simple` |
-| `-i, --iterations <n>` | Iterations per prompt | `3` |
+| `-a, --all-models` | Every model of every provider | `false` |
+| `-t, --prompts <category>` | Prompt category | `all` |
+| `-i, --iterations <n>` | Iterations per prompt | `1` |
 | `-s, --streaming` | Use streaming endpoint | `false` |
 | `-f, --format <type>` | Output format | `console` |
 | `-v, --verbose` | Show individual results | `false` |
